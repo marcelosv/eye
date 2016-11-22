@@ -13,7 +13,6 @@ import br.com.eye.data.TypesData;
 
 @SpringBootApplication
 @RestController
-//@ComponentScan(basePackages="br.com.msv.eye")
 @ImportAutoConfiguration(value=Config.class)
 public class ApplicationTest {
 
@@ -24,14 +23,16 @@ public class ApplicationTest {
 		SpringApplication.run(ApplicationTest.class, args);
 	}
 
-	@Sensor(description="Testar metodo", tags="test", type=TypesData.API_ENDPOINT)
-	@RequestMapping("/testar")
+	@Sensor(description="EndPoint", tags="test", type=TypesData.API_ENDPOINT)
+	@RequestMapping("/test")
 	public void testar() {
-		
 		componente.executar();
-		componente.executarCris();
-		
-		System.out.println("testar...");
 	}
-	
+
+	@Sensor(description="EndPoint", tags="testError", type=TypesData.API_ENDPOINT)
+	@RequestMapping("/testError")
+	public void testError() {
+		componente.executarException();
+	}
+
 }
