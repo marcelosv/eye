@@ -1,6 +1,18 @@
-# eYe: Monitoramento e Métricas de Funcionalidade/Software
+# eYe: Monitoring and Software Metrics
 
-eYe é um servidor e uma biblioteca para possibilitar a execusão e monitoramento de funcionalidades em realtime.
+eYe is a simple application that enables the realtime monitoring of Spring Boot software.
+
+## How important is monitoring software?
+
+The relevance of a software monitoring is to identify strategic points of most used functionalities, identify bottlenecks and anticipate possible errors, thus adding value to the product.
+
+## Requirements
+    1) Redis
+    2) the system that will be integrated must be development in Spring Boot
+
+## Structure
+    - eye-monitor: Server developed in Spring boot with the dashboard in Angularjs. This server receives and organizes all metrics;
+    - eye: Integration library where it should be added as a dependency in the software where you want to collect the metrics;
 
 ## Communication
 
@@ -11,21 +23,21 @@ eYe é um servidor e uma biblioteca para possibilitar a execusão e monitorament
 
 ## What does it do?
 
-#### 1) Monitoramento
+#### 1) Monitoring
 
-Monitorar um sistema e ter métricas é muito importante para analisar individualmente ou em conjunto as informações e poder ter decisões estratêgicas.
+Monitors a system and collects important metrics.
 
 #### 2) Realtime
 
-Com o eYe pode ser visto em tempo real as métricas de quantidade de acessos, exceptions, médias de execusão, etc...
+With eYe can be seen in real time the metrics of access quantity, exceptions, averages of execution, etc ...
 
-#### 3) Integrando ao seu sistema
+#### 3) Integrating with your software
 
-A integração é bem simples, e pode ser recolhido métricas de quaisquer método usando a anotação que o eYe define.
+The integration is very simple, and metrics can be collected from any method using the annotation that eYe defines.
 
 #### 1) Binaries
 
-Adicione esta dependência em seu sistema.
+Add this dependency in your software.
 
 ```xml
 <dependency>
@@ -34,8 +46,9 @@ Adicione esta dependência em seu sistema.
     <version>2016.11.1.1-SNAPSHOT</version>
 </dependency>
 ```
-#### 2) Configuração
-No application.properties adicine as chaves abaixo. A principal é "eye.url" que deve ser o local onde o servidor do eYe vai estar.
+
+#### 2) Configuration
+In the application.properties add the keys below. The main one is "eye.url" which should be where the eYe server will be.
 
 ```
 spring.application.name=nome-sistema
@@ -43,9 +56,7 @@ spring.application.version=0.0.0.1
 eye.url=http://localhost:8181
 ```
 
-#### 3) Anotações
-
-Code to be isolated is wrapped inside the run() method of a HystrixCommand similar to the following:
+#### 3) Annotations
 
 ```java
     @Sensor(description="Name", tags="test", type=TypesData.API_ENDPOINT)
@@ -54,28 +65,28 @@ Code to be isolated is wrapped inside the run() method of a HystrixCommand simil
         System.out.println("Hello...");
     }
 ```
-A anotação @Sensor é a principal e deve ser usada em todos os método que deseja ser monitorado. 
-Pode ser monitorado endpoints, service, repositorys, etc...
+The @Sensor annotation is the primary one and should be used in every method you want to monitor.
+Can be monitored endpoints, service, repositorys, etc ...
 
-## Testar
+## Test
 
 #### 1) Redis.
-Inicie o Redis. O servidor utiliza o redis para gravar e organizar as métricas.
+Start Redis. The server uses redis to record and organize the metrics.
 
 #### 2) Primeiro suba o servidor do eYe.
 ```
 java -jar eye-monitor.jar
 ```
 
-Acesse o link para abrir o dashboard.
+Go to the link to open the dashboard.
 ```
 http://localhost:8181/
 ```
 
-#### 3) Seu sistema
+#### 3) Start your system
 
-Inicie seu sistema e execute ele normalmente. 
-O sistema vai começar a registrar as métricas no servidor.
+Start your system and run it normally.
+The system will start recording the metrics on the server.
 
 
 <img src="eye.png">
