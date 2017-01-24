@@ -22,5 +22,6 @@ public interface DataSaveProcess {
 
 	Map<String, VersionsTotal> getVersionsAndTotal();
 
+	Map<String, Map<String, Boolean>> getClients();
    
 }

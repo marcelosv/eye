@@ -1,12 +1,12 @@
 package br.com.eye.monitor.process;
 
-import br.com.eye.monitor.data.SoftwareBean;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisOperations;
 import org.springframework.stereotype.Component;
 
-import java.util.Map;
-import java.util.TreeMap;
+import br.com.eye.monitor.data.SoftwareBean;
 
 @Component
 public class DataSaveProcessFeaturesOfNumbersImpl implements DataSaveProcessFeaturesOfNumbers {
@@ -20,19 +20,17 @@ public class DataSaveProcessFeaturesOfNumbersImpl implements DataSaveProcessFeat
     @Override
     public Map<String, SoftwareBean> getFeaturesAndNo() {
 
-        Map<String, SoftwareBean> retorno = new TreeMap<String, SoftwareBean>();
-
         Map<String, SoftwareBean> softwares = dbSystensProcess.getDB();
 
-        if (softwares == null) {
+/*        if (softwares == null) {
             return retorno;
         }
 
         for (Map.Entry<String, SoftwareBean> entry : softwares.entrySet()) {
             retorno.put(entry.getKey(), entry.getValue());
-        }
+        }*/
 
-        return retorno;
+        return softwares;
 
     }
 

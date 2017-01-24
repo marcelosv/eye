@@ -152,6 +152,13 @@
               <span class="switchery switchery-default" style="border-color: rgb(38, 185, 154); box-shadow: rgb(38, 185, 154) 0px 0px 0px 11px inset; transition: border 0.4s, box-shadow 0.4s, background-color 1.2s; background-color: rgb(38, 185, 154);"><small style="left: 12px; transition: background-color 0.4s, left 0.2s; background-color: rgb(255, 255, 255);"></small></span>
               {{ativo ? "Ativo" : "Desativado"}}
             </label>
+            
+            <label>
+             - Clientes: <select ng-model="client" ng-click="selecionarClient()">
+             					<option >Todos</option>
+             					<option ng-repeat="(chave, item) in listaClient" value="{{chave}}">{{chave}}</option>
+             			</select>
+            </label>
           </div>
 
           <div class="row">

@@ -37,6 +37,9 @@ public class DataSaveProcessImpl extends DataSaveProcessAbstract implements Data
 	@Autowired
 	private DataSaveProcessVersionsAndTotal dataSaveProcessVersionsAndTotal;
 
+	@Autowired
+	private DataSaveProcessClients dataSaveProcessClients;
+	
 	@Override
 	public void add(SonarData sonarData) {
 		dataSaveProcessAdd.add(sonarData);
@@ -65,6 +68,11 @@ public class DataSaveProcessImpl extends DataSaveProcessAbstract implements Data
 	@Override
 	public Map<String, VersionsTotal> getVersionsAndTotal() {
 		return dataSaveProcessVersionsAndTotal.getVersionsAndTotal();
+	}
+
+	@Override
+	public Map<String, Map<String, Boolean>> getClients() {
+		return dataSaveProcessClients.getClients();
 	}
 
 

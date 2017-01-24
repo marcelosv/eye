@@ -2,6 +2,7 @@ var app = angular.module("myApp", []);
 
 app.controller("myCtrl", function($scope, $http, $compile){
 
+			$scope.client = null;
 			$scope.stompClient = null;
 			$scope.sistemaLogado = "";
 
@@ -75,6 +76,10 @@ app.controller("myCtrl", function($scope, $http, $compile){
 					$scope.stompClient.subscribe('/topic/softwares', function (item) {
 						$scope.processarSistemas(item);
 					});
+					
+					$scope.stompClient.subscribe('/topic/clients', function (item) {
+						$scope.processarClientsWebSocket(item);
+					});
 
 					$http.get("refresh");
 
@@ -97,14 +102,22 @@ app.controller("myCtrl", function($scope, $http, $compile){
 				$http.get("active/" + (valor ? "S" : "N") );
 			};
 
+			$scope.selecionarClient = function(){
+				$scope.recarregarTodos();
+			}
+			
 			$scope.trocarSistemas = function(sistema){
 				$scope.sistemaLogado = sistema;
+				$scope.recarregarTodos();
+			};
 
+			$scope.recarregarTodos = function(){
 				$scope.processarDadosExecute();
 				$scope.processarDadosFuncTotaisPercExecute();
 				$scope.processarDadosVersoesTotaisExecute();
+				$scope.processarClients();
 			};
-
+			
 			$scope.processarSistemas = function(node){
 				var itens = JSON.parse(node.body);
 				$scope.sistemas = itens;
@@ -118,6 +131,25 @@ app.controller("myCtrl", function($scope, $http, $compile){
 				$scope.$apply();
 			};
 
+			$scope.processarClientsWebSocket = function(node) {
+				$scope.listaClientitens = JSON.parse(node.body);
+				$scope.processarClients();				
+			};
+			
+			$scope.processarClients = function() {
+
+				if( $scope.sistemaLogado == ""){
+					return;
+				}
+							
+				if( $scope.listaClientitens == null || $scope.listaClientitens == undefined){
+					return;
+				}
+			
+				$scope.listaClient = $scope.listaClientitens[$scope.sistemaLogado];
+			};
+			
+			
 			$scope.processarDadosFuncTotaisPercExecute = function() {
 
 				if( $scope.sistemaLogado == ""){
@@ -233,8 +265,20 @@ app.controller("myCtrl", function($scope, $http, $compile){
 					funcao.tempoCount = 0;
 
 					angular.forEach(funcao, function(item, keyItem) {
-						funcao.tempoCount++;
-						funcao.tempoTotal += item.timeExec;
+				
+						var calcular = false;
+						if( $scope.client == null || $scope.client == undefined || $scope.client == "Todos"){
+							calcular = true;
+						}		
+								
+						if( $scope.client != null && $scope.client != undefined && $scope.client != "Todos" && $scope.client == item.client ){
+							calcular = true;
+						}
+				
+						if( calcular ){
+							funcao.tempoCount++;
+							funcao.tempoTotal += item.timeExec;
+						}
 					});
 
 					funcao.tempoMedio = funcao.tempoTotal / funcao.tempoCount;
