@@ -7,7 +7,7 @@ eYe is a simple application that enables the realtime monitoring of Spring Boot 
 ##### v2/featuresandno/{system}?client=
 
 
-``` 
+```JSON 
 {  
    "EndPoint":{  
       "name":"EndPoint",
@@ -66,11 +66,13 @@ eYe is a simple application that enables the realtime monitoring of Spring Boot 
  ```
  
 ##### v2/featuresandno/{system}?client=
-``` 
+
+```JSON 
   {"0.0.0.1":100.0}
 ``` 
 
 ##### v2/featureandpercentage/{system}?client=
-``` 
+
+```JSON 
   {"EndPoint":50.0,"Method of @Component":50.0}
 ``` 
