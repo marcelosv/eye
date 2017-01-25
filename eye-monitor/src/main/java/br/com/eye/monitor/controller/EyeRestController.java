@@ -1,5 +1,6 @@
 package br.com.eye.monitor.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.validation.Valid;
@@ -11,8 +12,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.eye.monitor.processv2.ClientsProcess;
 import br.com.eye.monitor.processv2.FeatureAndPercentageProcess;
 import br.com.eye.monitor.processv2.FeaturesAndNoProcess;
+import br.com.eye.monitor.processv2.SoftwaresProcess;
 import br.com.eye.monitor.processv2.VersionsAndTotalProcess;
 import br.com.eye.monitor.processv2.json.FeatureAndNo;
 
@@ -31,6 +34,12 @@ public class EyeRestController {
 	
 	@Autowired
 	private FeatureAndPercentageProcess featureAndPercentageProcess;
+	
+	@Autowired
+	private ClientsProcess clientsProcess;
+	
+	@Autowired
+	private SoftwaresProcess softwaresProcess;
 	
 	@RequestMapping(path = "/featuresandno/{system}")
 	public Map<String, FeatureAndNo> featuresAndNo(
@@ -58,5 +67,18 @@ public class EyeRestController {
 		Map<String, Double> featureAndPercentage = featureAndPercentageProcess.getFeatureAndPercentage(system, client);
 		return featureAndPercentage;
 	}
+	
+	@RequestMapping(path = "/clients/{system}")
+	public List<String> clients(@Valid @NotNull @PathVariable(SYSTEM_PARAM) String system){
+		List<String> clients = clientsProcess.getClients(system);
+		return clients;
+	}
+	
+	@RequestMapping(path = "/softwares")
+	public List<String> softwares(){
+		List<String> list = softwaresProcess.getSoftwares();
+		return list;
+	}
+	
 	
 }

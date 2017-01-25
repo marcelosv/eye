@@ -76,3 +76,15 @@ eYe is a simple application that enables the realtime monitoring of Spring Boot 
 ```JSON 
   {"EndPoint":50.0,"Method of @Component":50.0}
 ``` 
+
+##### v2/clients/{system}
+
+```JSON 
+  ["client1","client2"]
+``` 
+
+##### v2/softwares
+
+```JSON 
+  ["soft1","soft2"]
+``` 
