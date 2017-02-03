@@ -1,0 +1,33 @@
+<div class="modal-header">
+  <h4>Detalhes da ação <b>{{action.name}}</b> no sistema <b>{{system}}</b> versão <b>{{versionAction}}</b></h4>
+</div>
+
+<div class="modal-body">
+ 	<div class="modal-details-item">
+ 		<div class="modal-details-item-title">Tempo de Execução (seg)</div>
+ 		
+ 		<div class="modal-details-item-content">
+ 			<canvas id="graphLineDetails" height="160" width="840"></canvas>
+ 		</div>
+ 	</div>
+ 	
+ 	<div class="modal-details-item">
+ 		<div class="modal-details-item-title">Quantidade de acessos / Exceções geradas</div>
+ 		
+ 		<div class="modal-details-item-content">
+ 			<canvas id="graphBarDetails" height="160" width="840"></canvas>
+ 		</div>
+ 	</div>
+ 	
+ 	<div class="modal-details-item">
+ 		<div class="modal-details-item-title">Exceções geradas ({{exceptionsList.length}})</div>
+ 		
+ 		<div class="modal-details-item-content" ng-if="exceptionsList.length > 0" ng-repeat="error in exceptionsList track by error.key">
+ 			<p><b>{{error.description}}</b></p>
+ 		</div>
+ 	</div>
+</div>
+
+<div class="modal-footer">    
+    <button class="btn btn-primary" ng-click="ok()">OK</button>
+</div>

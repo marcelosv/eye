@@ -41,7 +41,7 @@ public class EyeRestController {
 	@Autowired
 	private SoftwaresProcess softwaresProcess;
 	
-	@RequestMapping(path = "/featuresandno/{system}")
+	@RequestMapping(path = "/features/{system}")
 	public Map<String, FeatureAndNo> featuresAndNo(
 			@Valid @NotNull @PathVariable(SYSTEM_PARAM) String system, 
 			@RequestParam(value=CLIENT_PARAM, required=false) String client){
@@ -59,7 +59,7 @@ public class EyeRestController {
 		return versionsAndTotal;
 	}
 	
-	@RequestMapping(path = "/featureandpercentage/{system}")
+	@RequestMapping(path = "/featuresandpercentage/{system}")
 	public Map<String, Double> featureAndPercentage(
 			@Valid @NotNull @PathVariable(SYSTEM_PARAM) String system, 
 			@RequestParam(value=CLIENT_PARAM, required=false) String client){

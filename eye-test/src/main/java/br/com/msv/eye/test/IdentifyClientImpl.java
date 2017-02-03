@@ -9,7 +9,7 @@ public class IdentifyClientImpl implements IdentifyClient {
 
 	@Override
 	public String client() {
-		return "cliente1";
+		return "cliente2";
 	}
 
 }

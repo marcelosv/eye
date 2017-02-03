@@ -8,11 +8,19 @@ import br.com.eye.data.TypesData;
 @Component
 public class Componente {
 
-	@Sensor(description="Method of @Component", tags="test - componente", type=TypesData.API_ENDPOINT)
-	public void executar(){
+	@Sensor(description="Endpoint - Método 1", tags="test - componente", type=TypesData.API_ENDPOINT)
+	public void executar1(){
+	}
+	
+	@Sensor(description="Endpoint - Método 2", tags="test - componente", type=TypesData.API_ENDPOINT)
+	public void executar2(){
+	}
+	
+	@Sensor(description="Endpoint - Método 3", tags="test - componente", type=TypesData.API_ENDPOINT)
+	public void executar3(){
 	}
 
-	@Sensor(description="Method of @Componente with exception", tags="test - componente", type=TypesData.SERVICE)
+	@Sensor(description="Endpoint - Metodo 4 - Exception", tags="test - componente exception", type=TypesData.SERVICE)
 	public void executarException(){
 
 		try {
