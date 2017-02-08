@@ -11,7 +11,10 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.NoSuchBeanDefinitionException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
@@ -36,6 +39,9 @@ public class EyeAspect {
     @Value("${eye.disabled:}")
     private String disabled;
 
+    @Autowired
+    private ApplicationContext context;
+    
 	@Around("@annotation(br.com.eye.annotations.Sensor) && execution(* *(..))")
 	public Object aroundAdvice(ProceedingJoinPoint joinPoint) throws Throwable {
 		
@@ -66,6 +72,12 @@ public class EyeAspect {
         sonarData.setTimeInit(new Date().getTime());
         sonarData.setServer(appName);
         sonarData.setVersion(appVersion);
+        
+        IdentifyClient identifyClient = getIdentifyClient();
+        
+        if( identifyClient != null ){
+        	sonarData.setClient(identifyClient.client());
+        }
         
         try {
             returnObject = joinPoint.proceed();
@@ -99,6 +111,15 @@ public class EyeAspect {
         return returnObject;
     }
 
+	private IdentifyClient getIdentifyClient(){
+		try{
+			return context.getBean(IdentifyClient.class);
+		}catch(NoSuchBeanDefinitionException ex){
+			return null;
+		}
+	}
+	
+	
     class Send implements Runnable{
 
         SonarData sonarData;

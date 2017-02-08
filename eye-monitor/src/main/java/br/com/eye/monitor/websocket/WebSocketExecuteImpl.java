@@ -13,6 +13,7 @@ public class WebSocketExecuteImpl implements WebSocketExecute {
 	private static final String TOPIC_VERSIONS_TOTAL = "/topic/versions_total";
 	private static final String TOPIC_FEACTURE_AND_NUMBER = "/topic/feacture_number";
 	private static final String TOPIC_SOFTWARES = "/topic/softwares";
+	private static final String TOPIC_CLIENTS = "/topic/clients";
 
 	@Autowired
 	private SimpMessagingTemplate template;
@@ -40,6 +41,10 @@ public class WebSocketExecuteImpl implements WebSocketExecute {
 		
 		template.convertAndSend(TOPIC_FEACTURES_PERC,
 				dataSave.getFeaturesAndPerc());
+		
+		template.convertAndSend(TOPIC_CLIENTS,
+				dataSave.getClients());
+		
 	}
 
 }

@@ -2,21 +2,89 @@
 
 eYe is a simple application that enables the realtime monitoring of Spring Boot software.
 
-## How important is monitoring software?
+## API
 
-The relevance of a software monitoring is to identify strategic points of most used functionalities, identify bottlenecks and anticipate possible errors, thus adding value to the product.
+##### v2/featuresandno/{system}?client=
 
-## Requirements
-    the system that will be integrated must be development in Spring Boot
 
-## Structure
-    - eye-monitor: Server developed in Spring boot with the dashboard in Angularjs. This server receives and organizes all metrics;
-    - eye: Integration library where it should be added as a dependency in the software where you want to collect the metrics;
+```JSON 
+{  
+   "EndPoint":{  
+      "name":"EndPoint",
+      "average":1771.0,
+      "tags":[  
+         "test"
+      ],
+      "featuresAndNoVersion":{  
+         "0.0.0.1":{  
+            "version":null,
+            "accessNumber":8,
+            "errorNumber":0,
+            "errors":[  
 
-## Communication
+            ]
+         }
+      },
+      "timerList":[  
+         18,
+         9,
+         1,
+         0,
+         0,
+         0,
+         2,
+         14144
+      ]
+   },
+   "Method of @Component":{  
+      "name":"Method of @Component",
+      "average":347.0,
+      "tags":[  
+         "test - componente"
+      ],
+      "featuresAndNoVersion":{  
+         "0.0.0.1":{  
+            "version":null,
+            "accessNumber":7,
+            "errorNumber":0,
+            "errors":[  
 
-- [GitHub](https://github.com/marcelosv/eye)
-- [Linkedin](https://www.linkedin.com/in/marcelo-souza-vieira-112174a9)
-- [Twitter](https://twitter.com/uaicelo)
+            ]
+         }
+      },
+      "timerList":[  
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         2431
+      ]
+   }
+}
+ ```
+ 
+##### v2/featuresandno/{system}?client=
 
-<img src="../eye.png">
+```JSON 
+  {"0.0.0.1":100.0}
+``` 
+
+##### v2/featureandpercentage/{system}?client=
+
+```JSON 
+  {"EndPoint":50.0,"Method of @Component":50.0}
+``` 
+
+##### v2/clients/{system}
+
+```JSON 
+  ["client1","client2"]
+``` 
+
+##### v2/softwares
+
+```JSON 
+  ["soft1","soft2"]
+``` 

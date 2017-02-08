@@ -4,12 +4,15 @@ import br.com.eye.data.SonarData;
 
 import java.util.*;
 
+import org.springframework.util.StringUtils;
+
 public class SoftwareBean {
 
     private Map<String, List<SonarData>> funcionalidade = new HashMap<String, List<SonarData>>();
     private Map<String, List<String>> erros = new HashMap<String, List<String>>(); // funciondadlei - versao
     private Map<String, Map<String, CountVersion>> versoes = new TreeMap<String, Map<String, CountVersion>>(); // sistema - versao
-
+    private Map<String, Boolean> clients =  new TreeMap<String, Boolean>();
+    
     private int nroFuncionalidades;
     private int nroErros;
 
@@ -44,6 +47,11 @@ public class SoftwareBean {
 
         funcionalidade.get(sonarData.getDescription()).add(sonarData);
         nroFuncionalidades++;
+        
+        if( !StringUtils.isEmpty(sonarData.getClient()) ){
+        	clients.put(sonarData.getClient(), true);
+        }
+        
     }
 
     public Map<String, List<SonarData>> getFuncionalidade() {
@@ -85,6 +93,10 @@ public class SoftwareBean {
 
 	public void setVersoes(Map<String, Map<String, CountVersion>> versoes) {
 		this.versoes = versoes;
+	}
+
+	public Map<String, Boolean> getClients() {
+		return clients;
 	}
 
 

@@ -70,20 +70,35 @@ Can be monitored endpoints, service, repositorys, etc ...
 
 ## Test
 
-#### 1) Redis.
+#### 1) [Redis](https://redis.io/topics/quickstart).
 Start Redis. The server uses redis to record and organize the metrics.
 
-#### 2) Primeiro suba o servidor do eYe.
+#### 2) Run eYe server.
 ```
-java -jar eye-monitor.jar
+cd eye/target
+java -jar eye-monitor-*SnapshotName-Generated*.jar
 ```
 
-Go to the link to open the dashboard.
+#### 3) Run eYe-test server (optional).
+
+```
+cd eye-test/target
+java -jar eye-test-*SnapshotName-Generated*.jar
+```
+
+#### 4) Go to the link to open the dashboard.
 ```
 http://localhost:8181/
 ```
 
-#### 3) Start your system
+- To generate any register on the test server, type:
+
+```
+curl http://localhost:8081/test
+```
+
+
+#### 5) Start your system
 
 Start your system and run it normally.
 The system will start recording the metrics on the server.

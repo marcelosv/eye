@@ -26,7 +26,9 @@ public class ApplicationTest {
 	@Sensor(description="EndPoint", tags="test", type=TypesData.API_ENDPOINT)
 	@RequestMapping("/test")
 	public void testar() {
-		componente.executar();
+		componente.executar1();
+		componente.executar2();
+		componente.executar3();
 	}
 
 	@Sensor(description="EndPoint", tags="testError", type=TypesData.API_ENDPOINT)
