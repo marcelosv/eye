@@ -8,7 +8,8 @@ import org.springframework.util.StringUtils;
 
 public class SoftwareBean {
 
-    private Map<String, List<SonarData>> funcionalidade = new HashMap<String, List<SonarData>>();
+    private static final int MAX_ITENS = 100;
+	private Map<String, List<SonarData>> funcionalidade = new HashMap<String, List<SonarData>>();
     private Map<String, List<String>> erros = new HashMap<String, List<String>>(); // funciondadlei - versao
     private Map<String, Map<String, CountVersion>> versoes = new TreeMap<String, Map<String, CountVersion>>(); // sistema - versao
     private Map<String, Boolean> clients =  new TreeMap<String, Boolean>();
@@ -45,7 +46,12 @@ public class SoftwareBean {
             funcionalidade.put(sonarData.getDescription(), new ArrayList<SonarData>());
         }
 
-        funcionalidade.get(sonarData.getDescription()).add(sonarData);
+        List<SonarData> itens = funcionalidade.get(sonarData.getDescription());
+        if( itens.size() >= MAX_ITENS){
+        	itens.remove(0);
+        	itens.add(sonarData);
+        }
+        
         nroFuncionalidades++;
         
         if( !StringUtils.isEmpty(sonarData.getClient()) ){
