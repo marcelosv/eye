@@ -4,7 +4,7 @@
 
 	<groupId>br.com.eye</groupId>
 	<artifactId>eye-monitor</artifactId>
-	<version>2017.1.1.1-SNAPSHOT</version>
+	<version>2017.2.1.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<properties>
@@ -34,7 +34,7 @@
 		<dependency>
 			<groupId>br.com.eye</groupId>
 			<artifactId>eye</artifactId>
-			<version>2017.1.1.1-SNAPSHOT</version>
+			<version>2017.2.1.1-SNAPSHOT</version>
 		</dependency>
 
 	</dependencies>
