@@ -8,15 +8,15 @@ import br.com.eye.data.TypesData;
 @Component
 public class Componente {
 
-	@Sensor(description="Endpoint - Método 1", tags="test - componente", type=TypesData.API_ENDPOINT)
+	@Sensor(description="Endpoint-Metodo-1", tags="test - componente", type=TypesData.API_ENDPOINT)
 	public void executar1(){
 	}
 	
-	@Sensor(description="Endpoint - Método 2", tags="test - componente", type=TypesData.API_ENDPOINT)
+	@Sensor(description="Endpoint-Metodo2", tags="test - componente", type=TypesData.API_ENDPOINT)
 	public void executar2(){
 	}
 	
-	@Sensor(description="Endpoint - Método 3", tags="test - componente", type=TypesData.API_ENDPOINT)
+	@Sensor(description="Endpoint-Metodo3", tags="test - componente", type=TypesData.API_ENDPOINT)
 	public void executar3(){
 	}
 

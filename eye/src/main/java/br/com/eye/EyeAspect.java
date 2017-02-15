@@ -1,6 +1,7 @@
 package br.com.eye;
 
 import java.lang.reflect.Method;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -42,6 +43,9 @@ public class EyeAspect {
     @Autowired
     private ApplicationContext context;
     
+    private static final SimpleDateFormat DATE_IN = new SimpleDateFormat("YYYY-MM-dd'T'HH:mm:ss.SSS'Z'");
+    private static final SimpleDateFormat DATE_INDEX = new SimpleDateFormat("YYYY-MM-dd");
+    
 	@Around("@annotation(br.com.eye.annotations.Sensor) && execution(* *(..))")
 	public Object aroundAdvice(ProceedingJoinPoint joinPoint) throws Throwable {
 		
@@ -66,6 +70,11 @@ public class EyeAspect {
         
         // iniciando sonar
         SonarData sonarData = new SonarData();
+        
+         
+        sonarData.setBuildTimestamp(DATE_IN.format(new Date()));
+        
+        
         sonarData.setDescription(sensor.description());
         sonarData.setTags(sensor.tags());
         sonarData.setType(sensor.type().getValue());
@@ -132,7 +141,18 @@ public class EyeAspect {
             try {
                 RestTemplate restTemplate = new RestTemplate();
                 Map<String, String> vars = new HashMap<String, String>();
-                restTemplate.postForObject(eyeLink.concat("/receive"), sonarData, SonarData.class, vars);
+                
+                StringBuilder link = new StringBuilder(eyeLink);
+                link.append("/")
+                .append(sonarData.getServer().replaceAll(" ", "_")).append("-").append(DATE_INDEX.format(new Date()))
+                .append("/").append(sonarData.getDescription().replaceAll(" ", "_"))
+                .append("/");
+                
+                System.out.println(link.toString());
+                
+                restTemplate.postForObject(link.toString(), sonarData, SonarData.class, vars);
+                
+                //restTemplate.postForObject(eyeLink.concat("/receive"), sonarData, SonarData.class, vars);
             }catch (RuntimeException ex){
                 LOGGER.debug("Impossível acessar monitor: "+ex.getMessage());
             }
