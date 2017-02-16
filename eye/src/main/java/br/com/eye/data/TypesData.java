@@ -5,7 +5,11 @@ public enum TypesData {
 	USER(1),
 	SERVICE(2),
 	API_ENDPOINT(3),
-	UNINFORMED(4);
+	UNINFORMED(4),
+	QUEUE(5),
+	HQL(6),
+	SQL(7)
+	;
 	
 	private int value;
 	
