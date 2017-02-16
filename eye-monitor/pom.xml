@@ -4,7 +4,7 @@
 
 	<groupId>br.com.eye</groupId>
 	<artifactId>eye-monitor</artifactId>
-	<version>2017.1.1.1-SNAPSHOT</version>
+	<version>2017.2.1.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<properties>
@@ -21,20 +21,9 @@
 	<dependencies>
 
 		<dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-websocket</artifactId>
-        </dependency>
-
-		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-security</artifactId>
+			<artifactId>spring-boot-starter</artifactId>
 		</dependency>
-
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-redis</artifactId>
-		</dependency>
-
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -42,40 +31,16 @@
 			<scope>test</scope>
 		</dependency>
 
-		
 		<dependency>
 			<groupId>br.com.eye</groupId>
 			<artifactId>eye</artifactId>
-			<version>2017.1.1.1-SNAPSHOT</version>
+			<version>2017.2.1.1-SNAPSHOT</version>
 		</dependency>
-		
-		<dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>sockjs-client</artifactId>
-            <version>1.0.2</version>
-        </dependency>
-        <dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>stomp-websocket</artifactId>
-            <version>2.3.3</version>
-        </dependency>
-        
-        <dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>webjars-locator</artifactId>
-        </dependency>
 
-		<dependency>
-			<groupId>redis.embedded</groupId>
-			<artifactId>embedded-redis</artifactId>
-			<version>0.5</version>
-			<scope>test</scope>
-		</dependency>
-		
 	</dependencies>
 
 	<build>
-	    <finalName>${project.artifactId}</finalName>
+		<finalName>${project.artifactId}</finalName>
 		<plugins>
 
 			<plugin>
@@ -93,15 +58,9 @@
 				</executions>
 			</plugin>
 
-			<!--<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>exec-maven-plugin</artifactId>
-				<version>1.2.1</version>
-				<configuration>
-					<mainClass>br.com.eye.monitor.ApplicationMonitor</mainClass>
-				</configuration>
-			</plugin>
--->
+			<!--<plugin> <groupId>org.codehaus.mojo</groupId> <artifactId>exec-maven-plugin</artifactId> 
+				<version>1.2.1</version> <configuration> <mainClass>br.com.eye.monitor.ApplicationMonitor</mainClass> 
+				</configuration> </plugin> -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>

@@ -1,5 +1,8 @@
 package br.com.eye.data;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+
 /**
  * Object that the monitor will receive from the clients with all the data.
  *
@@ -8,19 +11,48 @@ package br.com.eye.data;
  */
 public class SonarData {
 
+	@JsonProperty("description_")
 	private String description;
+	
+	@JsonProperty("tags_")
 	private String[] tags;
+	
+	@JsonProperty("type_")
 	private int type;
+	
+	@JsonProperty("timeInit_")
 	private long timeInit;
+	
+	@JsonProperty("timeExec_")
 	private long timeExec;
+	
+	@JsonProperty("error_")
 	private boolean error;
+	
+	@JsonProperty("messageError_")
 	private String messageError;
+	
+	@JsonProperty("client_")
 	private String client;
-	private String server; // sistema
+	
+	@JsonProperty("server_")
+	private String server;
+	
+	@JsonProperty("exception_")
 	private String exception;
+	
+	@JsonProperty("version_")
 	private String version;
+	
+	@JsonProperty("eye_")
+	private boolean eye = true;
+	
+	@JsonProperty("messageStackTrace_")
 	private String messageStackTrace;
-
+	
+	@JsonProperty("@timestamp")
+	private String buildTimestamp;
+	
 	public String getDescription() {
 		return description;
 	}
@@ -116,4 +148,22 @@ public class SonarData {
 	public void setMessageStackTrace(String messageStackTrace) {
 		this.messageStackTrace = messageStackTrace;
 	}
+
+	public String getBuildTimestamp() {
+		return buildTimestamp;
+	}
+
+	public void setBuildTimestamp(String buildTimestamp) {
+		this.buildTimestamp = buildTimestamp;
+	}
+
+	public boolean isEye() {
+		return eye;
+	}
+
+	public void setEye(boolean eye) {
+		this.eye = eye;
+	}
+
+
 }
