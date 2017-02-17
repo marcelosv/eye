@@ -13,6 +13,6 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 @Configuration
 @ComponentScan(basePackageClasses = EyeAspect.class)
 @EnableAspectJAutoProxy
-public class Config {
+public class EyeConfig {
 
 }

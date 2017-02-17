@@ -4,11 +4,13 @@
 
 	<groupId>br.com.eye</groupId>
 	<artifactId>eye</artifactId>
-	<version>2017.2.1.1-SNAPSHOT</version>
+	<version>2017.2.1.1</version>
 	<packaging>jar</packaging>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<sonar.host.url>https://sonarqube.agilepromoter.com</sonar.host.url>
+		<sonar.login>39c712671e9b985bf50e78da5189613f3834f269</sonar.login>
 	</properties>
 
 	<dependencies>
@@ -56,6 +58,62 @@
 
 	</dependencies>
 
+	<profiles>
+
+		<profile>
+			<id>dev</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<repositories>
+				<repository>
+					<id>maven-s3-snapshot-repo</id>
+					<url>s3://repo.involves.com.br/snapshot</url>
+					<snapshots>
+						<enabled>true</enabled>
+					</snapshots>
+				</repository>
+
+				<repository>
+					<id>maven-s3-release-repo</id>
+					<url>s3://repo.involves.com.br/release</url>
+					<snapshots>
+						<enabled>false</enabled>
+					</snapshots>
+				</repository>
+			</repositories>
+			<distributionManagement>
+				<repository>
+					<id>maven-s3-release-repo</id>
+					<url>s3://repo.involves.com.br/snapshot</url>
+				</repository>
+				<snapshotRepository>
+					<id>maven-s3-release-repo</id>
+					<url>s3://repo.involves.com.br/snapshot</url>
+				</snapshotRepository>
+			</distributionManagement>
+		</profile>
+
+		<profile>
+			<id>release</id>
+			<repositories>
+				<repository>
+					<id>maven-s3-release-repo</id>
+					<url>s3://repo.involves.com.br/release</url>
+					<snapshots>
+						<enabled>false</enabled>
+					</snapshots>
+				</repository>
+			</repositories>
+			<distributionManagement>
+				<repository>
+					<id>maven-s3-release-repo</id>
+					<url>s3://repo.involves.com.br/release</url>
+				</repository>
+			</distributionManagement>
+		</profile>
+	</profiles>
+
 	<build>
 		<plugins>
 			<plugin>
@@ -67,7 +125,24 @@
 					<target>1.8</target>
 				</configuration>
 			</plugin>
+
+			<plugin>
+				<groupId>org.sonarsource.scanner.maven</groupId>
+				<artifactId>sonar-maven-plugin</artifactId>
+				<version>3.2</version>
+			</plugin>
+
+
 		</plugins>
+
+		<extensions>
+			<extension>
+				<groupId>org.kuali.maven.wagons</groupId>
+				<artifactId>maven-s3-wagon</artifactId>
+				<version>1.2.1</version>
+			</extension>
+		</extensions>
+
 	</build>
 
 </project>
