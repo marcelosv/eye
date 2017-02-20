@@ -1,39 +1,58 @@
-# eYe: Monitoring and Software Metrics
+# New eYe: Monitoring and Software Metrics with integration Elasticsearch and Kibana
 
 eYe is a simple application that enables the realtime monitoring of Spring Boot software.
+
+## Version
+
+2017.2.1.1
+
+## Whats is a change the last version?
+The first version of eYe had a visual monitor.
+We integrated software with eYe and it sent the metrics to the monitor.
+Now, one last version, the monitor is finished.
+eYe now integrates with Elasticsearch and Kibana.
 
 ## How important is monitoring software?
 
 The relevance of a software monitoring is to identify strategic points of most used functionalities, identify bottlenecks and anticipate possible errors, thus adding value to the product.
 
 ## Requirements
-    1) Redis
-    2) the system that will be integrated must be development in Spring Boot
+
+    the system that will be integrated must be development in Spring Boot
 
 ## Structure
-    - eye-monitor: Server developed in Spring boot with the dashboard in Angularjs. This server receives and organizes all metrics;
     - eye: Integration library where it should be added as a dependency in the software where you want to collect the metrics;
 
-## Communication
+## Run Elasticsearch and Kibana
 
-- [GitHub](https://github.com/marcelosv/eye)
-- [Linkedin](https://www.linkedin.com/in/marcelo-souza-vieira-112174a9)
-- [Twitter](https://twitter.com/uaicelo)
+Change "@IP@" for your IP.
 
+```xml
+elasticsearch:
+    image: elasticsearch:latest
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    volumes:
+      - elasticsearch1:/usr/share/elasticsearch/data
 
-## What does it do?
+ logstash:
+    image: logstash:latest
+    command: logstash -e 'input { tcp { port => 5000 } } output { elasticsearch { hosts => "@IP@" } }'
+    ports:
+      - "5000:5000"
 
-#### 1) Monitoring
+ kibana:
+    image: kibana
+    ports:
+      - "5601:5601"
+    environment:
+      - ELASTICSEARCH_URL=http://@IP@:9200
+```
 
-Monitors a system and collects important metrics.
+docker-compose up
 
-#### 2) Realtime
-
-With eYe can be seen in real time the metrics of access quantity, exceptions, averages of execution, etc ...
-
-#### 3) Integrating with your software
-
-The integration is very simple, and metrics can be collected from any method using the annotation that eYe defines.
+## Integrating with your software
 
 #### 1) Binaries
 
@@ -43,20 +62,28 @@ Add this dependency in your software.
 <dependency>
     <groupId>br.com.eye</groupId>
     <artifactId>eye</artifactId>
-    <version>2016.11.1.1-SNAPSHOT</version>
+    <version>2017.2.1.1</version>
 </dependency>
 ```
 
 #### 2) Configuration
-In the application.properties add the keys below. The main one is "eye.url" which should be where the eYe server will be.
+In the application.properties add the keys below. 
+The main one is "eye.url" which should be where the Elasticsearch server will be.
 
 ```
 spring.application.name=nome-sistema
 spring.application.version=0.0.0.1
-eye.url=http://localhost:8181
+eye.url=http://localhost:9200
 ```
 
-#### 3) Annotations
+#### 3) Started eYe interceptor
+Add annotation
+
+``` java
+@ImportAutoConfiguration(value={EyeConfig.class})
+```
+
+#### 4) Annotations
 
 ```java
     @Sensor(description="Name", tags="test", type=TypesData.API_ENDPOINT)
@@ -65,43 +92,22 @@ eye.url=http://localhost:8181
         System.out.println("Hello...");
     }
 ```
+
 The @Sensor annotation is the primary one and should be used in every method you want to monitor.
 Can be monitored endpoints, service, repositorys, etc ...
 
-## Test
+#### 5) Kibana
 
-#### 1) [Redis](https://redis.io/topics/quickstart).
-Start Redis. The server uses redis to record and organize the metrics.
+First we need to add index the Kibana. The eYe send information with "spring.application.name" + YYYY-MM-DD.
+In our exemple, we add o index "nome-sistema*"
+Now folder use the index to make the queries.
 
-#### 2) Run eYe server.
-```
-cd eye/target
-java -jar eye-monitor-*SnapshotName-Generated*.jar
-```
+<img src="kibana_index.png">
 
-#### 3) Run eYe-test server (optional).
+## Communication
 
-```
-cd eye-test/target
-java -jar eye-test-*SnapshotName-Generated*.jar
-```
-
-#### 4) Go to the link to open the dashboard.
-```
-http://localhost:8181/
-```
-
-- To generate any register on the test server, type:
-
-```
-curl http://localhost:8081/test
-```
+- [GitHub](https://github.com/marcelosv/eye)
+- [Linkedin](https://www.linkedin.com/in/marcelo-souza-vieira-112174a9)
+- [Twitter](https://twitter.com/uaicelo)
 
 
-#### 5) Start your system
-
-Start your system and run it normally.
-The system will start recording the metrics on the server.
-
-
-<img src="eye.png">

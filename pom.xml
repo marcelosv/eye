@@ -11,7 +11,6 @@
 
     <modules>
         <module>eye</module>
-		<module>eye-monitor</module>
 		<module>eye-test</module>
     </modules>
     
