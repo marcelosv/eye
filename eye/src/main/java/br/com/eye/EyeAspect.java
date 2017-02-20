@@ -1,6 +1,7 @@
 package br.com.eye;
 
 import java.lang.reflect.Method;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -11,7 +12,10 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.NoSuchBeanDefinitionException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
@@ -36,6 +40,12 @@ public class EyeAspect {
     @Value("${eye.disabled:}")
     private String disabled;
 
+    @Autowired
+    private ApplicationContext context;
+    
+    private static final SimpleDateFormat DATE_IN = new SimpleDateFormat("YYYY-MM-dd'T'HH:mm:ss.SSS'Z'");
+    private static final SimpleDateFormat DATE_INDEX = new SimpleDateFormat("YYYY-MM-dd");
+    
 	@Around("@annotation(br.com.eye.annotations.Sensor) && execution(* *(..))")
 	public Object aroundAdvice(ProceedingJoinPoint joinPoint) throws Throwable {
 		
@@ -60,12 +70,23 @@ public class EyeAspect {
         
         // iniciando sonar
         SonarData sonarData = new SonarData();
+        
+         
+        sonarData.setBuildTimestamp(DATE_IN.format(new Date()));
+        
+        
         sonarData.setDescription(sensor.description());
         sonarData.setTags(sensor.tags());
         sonarData.setType(sensor.type().getValue());
         sonarData.setTimeInit(new Date().getTime());
         sonarData.setServer(appName);
         sonarData.setVersion(appVersion);
+        
+        IdentifyClient identifyClient = getIdentifyClient();
+        
+        if( identifyClient != null ){
+        	sonarData.setClient(identifyClient.client());
+        }
         
         try {
             returnObject = joinPoint.proceed();
@@ -99,6 +120,15 @@ public class EyeAspect {
         return returnObject;
     }
 
+	private IdentifyClient getIdentifyClient(){
+		try{
+			return context.getBean(IdentifyClient.class);
+		}catch(NoSuchBeanDefinitionException ex){
+			return null;
+		}
+	}
+	
+	
     class Send implements Runnable{
 
         SonarData sonarData;
@@ -111,7 +141,18 @@ public class EyeAspect {
             try {
                 RestTemplate restTemplate = new RestTemplate();
                 Map<String, String> vars = new HashMap<String, String>();
-                restTemplate.postForObject(eyeLink.concat("/receive"), sonarData, SonarData.class, vars);
+                
+                StringBuilder link = new StringBuilder(eyeLink);
+                link.append("/")
+                .append(sonarData.getServer().replaceAll(" ", "_")).append("-").append(DATE_INDEX.format(new Date()))
+                .append("/").append(sonarData.getDescription().replaceAll(" ", "_"))
+                .append("/");
+                
+                System.out.println(link.toString());
+                
+                restTemplate.postForObject(link.toString(), sonarData, SonarData.class, vars);
+                
+                //restTemplate.postForObject(eyeLink.concat("/receive"), sonarData, SonarData.class, vars);
             }catch (RuntimeException ex){
                 LOGGER.debug("Impossível acessar monitor: "+ex.getMessage());
             }

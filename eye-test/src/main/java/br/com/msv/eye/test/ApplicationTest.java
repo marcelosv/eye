@@ -8,12 +8,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.eye.annotations.Sensor;
-import br.com.eye.config.Config;
+import br.com.eye.config.EyeConfig;
 import br.com.eye.data.TypesData;
 
 @SpringBootApplication
 @RestController
-@ImportAutoConfiguration(value=Config.class)
+@ImportAutoConfiguration(value=EyeConfig.class)
 public class ApplicationTest {
 
 	@Autowired
@@ -26,7 +26,9 @@ public class ApplicationTest {
 	@Sensor(description="EndPoint", tags="test", type=TypesData.API_ENDPOINT)
 	@RequestMapping("/test")
 	public void testar() {
-		componente.executar();
+		componente.executar1();
+		componente.executar2();
+		componente.executar3();
 	}
 
 	@Sensor(description="EndPoint", tags="testError", type=TypesData.API_ENDPOINT)

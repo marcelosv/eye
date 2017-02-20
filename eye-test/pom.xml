@@ -4,7 +4,7 @@
 
 	<groupId>br.com.msv</groupId>
 	<artifactId>eye-test</artifactId>
-	<version>2016.11.1.1-SNAPSHOT</version>
+	<version>2017.2.1.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<properties>
@@ -49,7 +49,7 @@
 		<dependency>
 			<groupId>br.com.eye</groupId>
 			<artifactId>eye</artifactId>
-			<version>2016.11.1.1-SNAPSHOT</version>
+			<version>2017.2.1.1-SNAPSHOT</version>
 		</dependency>
 
 	</dependencies>
@@ -59,7 +59,6 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.5.1</version>
 				<configuration>
 					<source>1.8</source>
 					<target>1.8</target>
