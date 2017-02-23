@@ -37,6 +37,13 @@
 		</dependency>
 
 		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-autoconfigure</artifactId>
+			<version>1.4.1.RELEASE</version>
+			<scope>provided</scope>
+		</dependency>
+		
+		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-aop</artifactId>
 			<version>4.3.3.RELEASE</version>

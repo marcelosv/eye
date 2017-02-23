@@ -1,9 +1,10 @@
 package br.com.eye.config;
 
-import br.com.eye.EyeAspect;
-import org.springframework.context.annotation.ComponentScan;
+import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
+
+import br.com.eye.EyeAspect;
 
 /**
  * Configuration of the meYe that will start AspectJ and scan the classes.
@@ -11,7 +12,7 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
  * @author Marcelo de Souza Vieira
  */
 @Configuration
-@ComponentScan(basePackageClasses = EyeAspect.class)
+@ImportAutoConfiguration(value={EyeAspect.class})
 @EnableAspectJAutoProxy
 public class EyeConfig {
 
