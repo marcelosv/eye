@@ -53,6 +53,15 @@ public class SonarData {
 	@JsonProperty("@timestamp")
 	private String buildTimestamp;
 	
+	@JsonProperty("mOrigin_")
+	private String mOrigin;
+	
+	@JsonProperty("mDestiny_")
+	private String mDestiny;
+	
+	@JsonProperty("mLink_")
+	private String mLink;
+	
 	public String getDescription() {
 		return description;
 	}
@@ -165,5 +174,31 @@ public class SonarData {
 		this.eye = eye;
 	}
 
+	public String getmOrigin() {
+		return mOrigin;
+	}
 
+	public void setmOrigin(String mOrigin) {
+		this.mOrigin = mOrigin;
+	}
+
+
+	public String getmDestiny() {
+		return mDestiny;
+	}
+
+	public void setmDestiny(String mDestiny) {
+		this.mDestiny = mDestiny;
+	}
+
+	public String getmLink() {
+		return mLink;
+	}
+
+	public void setmLink(String mLink) {
+		this.mLink = mLink;
+	}
+
+
+	
 }

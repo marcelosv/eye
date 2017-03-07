@@ -1,10 +1,7 @@
 package br.com.eye;
 
 import java.lang.reflect.Method;
-import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -17,14 +14,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
-import org.springframework.web.client.RestTemplate;
 
 import br.com.eye.annotations.Sensor;
 import br.com.eye.data.SonarData;
+import br.com.eye.data.TypesData;
 
 @Aspect
 @Component
-public class EyeAspect {
+public class EyeAspect extends EyeAbstract {
 
 	private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
 
@@ -42,9 +39,6 @@ public class EyeAspect {
 
     @Autowired
     private ApplicationContext context;
-    
-    private static final SimpleDateFormat DATE_IN = new SimpleDateFormat("YYYY-MM-dd'T'HH:mm:ss.SSS'Z'");
-    private static final SimpleDateFormat DATE_INDEX = new SimpleDateFormat("YYYY-MM-dd");
     
 	@Around("@annotation(br.com.eye.annotations.Sensor) && execution(* *(..))")
 	public Object aroundAdvice(ProceedingJoinPoint joinPoint) throws Throwable {
@@ -71,9 +65,18 @@ public class EyeAspect {
         // iniciando sonar
         SonarData sonarData = new SonarData();
         
-         
-        sonarData.setBuildTimestamp(DATE_IN.format(new Date()));
+        if( sensor.type() == TypesData.DEPENDENCY ){
+        	
+        	String microservice = joinPoint.getArgs()[0].toString();
+        	String link = joinPoint.getArgs()[1].toString();
+        	
+        	sonarData.setmOrigin(appName);
+        	sonarData.setmDestiny(microservice);
+        	sonarData.setmLink(link);
+        }
         
+        
+        sonarData.setBuildTimestamp(DATE_IN.format(new Date()));
         
         sonarData.setDescription(sensor.description());
         sonarData.setTags(sensor.tags());
@@ -114,7 +117,7 @@ public class EyeAspect {
             long tempoFinal = System.currentTimeMillis() - tempoInicial;
             sonarData.setTimeExec(tempoFinal);
 
-            new Thread(new Send(sonarData)).start();
+            new Thread(new Send(sonarData, eyeLink)).start();
         }
         
         return returnObject;
@@ -128,35 +131,4 @@ public class EyeAspect {
 		}
 	}
 	
-	
-    class Send implements Runnable{
-
-        SonarData sonarData;
-        public Send(SonarData sonarData){
-            this.sonarData = sonarData;
-        }
-
-        @Override
-        public void run() {
-            try {
-                RestTemplate restTemplate = new RestTemplate();
-                Map<String, String> vars = new HashMap<String, String>();
-                
-                StringBuilder link = new StringBuilder(eyeLink);
-                link.append("/")
-                .append(sonarData.getServer().replaceAll(" ", "_")).append("-").append(DATE_INDEX.format(new Date()))
-                .append("/").append(sonarData.getDescription().replaceAll(" ", "_"))
-                .append("/");
-                
-                System.out.println(link.toString());
-                
-                restTemplate.postForObject(link.toString(), sonarData, SonarData.class, vars);
-                
-                //restTemplate.postForObject(eyeLink.concat("/receive"), sonarData, SonarData.class, vars);
-            }catch (RuntimeException ex){
-                LOGGER.debug("Impossível acessar monitor: "+ex.getMessage());
-            }
-        }
-    }
-
 }

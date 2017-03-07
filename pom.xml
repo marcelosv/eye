@@ -4,7 +4,7 @@
 
 	<groupId>br.com.msv</groupId>
 	<artifactId>eye-parent</artifactId>
-	<version>2017.2.1.1</version>
+	<version>1.17.3.1</version>
 	<packaging>pom</packaging>
 
 	<name>eye-parent</name>

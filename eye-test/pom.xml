@@ -4,7 +4,7 @@
 
 	<groupId>br.com.msv</groupId>
 	<artifactId>eye-test</artifactId>
-	<version>2017.2.1.1-SNAPSHOT</version>
+	<version>1.17.3.1</version>
 	<packaging>jar</packaging>
 
 	<properties>
@@ -49,7 +49,7 @@
 		<dependency>
 			<groupId>br.com.eye</groupId>
 			<artifactId>eye</artifactId>
-			<version>2017.2.1.1-SNAPSHOT</version>
+			<version>1.17.3.1</version>
 		</dependency>
 
 	</dependencies>

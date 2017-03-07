@@ -8,7 +8,8 @@ public enum TypesData {
 	UNINFORMED(4),
 	QUEUE(5),
 	HQL(6),
-	SQL(7)
+	SQL(7),
+	DEPENDENCY(8)
 	;
 	
 	private int value;
