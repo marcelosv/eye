@@ -74,6 +74,9 @@ The main one is "eye.url" which should be where the Elasticsearch server will be
 spring.application.name=nome-sistema
 spring.application.version=0.0.0.1
 eye.url=http://localhost:9200
+
+eye.user.elasticsearch=
+eye.pass.elasticsearch=
 ```
 
 #### 3) Started eYe interceptor
