@@ -46,7 +46,7 @@
 			<version>1.4.1.RELEASE</version>
 			<scope>provided</scope>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-aop</artifactId>
@@ -70,6 +70,8 @@
 	</dependencies>
 
 	<build>
+		<finalName>${project.artifactId}</finalName>
+		
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -83,6 +85,71 @@
 
 		</plugins>
 
+		<extensions>
+			<extension>
+				<groupId>org.kuali.maven.wagons</groupId>
+				<artifactId>maven-s3-wagon</artifactId>
+				<version>1.2.1</version>
+			</extension>
+		</extensions>
+
 	</build>
 
+	<profiles>
+
+		<profile>
+			<id>dev</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<repositories>
+				<repository>
+					<id>maven-s3-snapshot-repo</id>
+					<url>s3://repo.involves.com.br/snapshot</url>
+					<snapshots>
+						<enabled>true</enabled>
+					</snapshots>
+				</repository>
+
+				<repository>
+					<id>maven-s3-release-repo</id>
+					<url>s3://repo.involves.com.br/release</url>
+					<snapshots>
+						<enabled>false</enabled>
+					</snapshots>
+				</repository>
+			</repositories>
+			<distributionManagement>
+				<repository>
+					<id>maven-s3-release-repo</id>
+					<url>s3://repo.involves.com.br/snapshot</url>
+				</repository>
+				<snapshotRepository>
+					<id>maven-s3-release-repo</id>
+					<url>s3://repo.involves.com.br/snapshot</url>
+				</snapshotRepository>
+			</distributionManagement>
+		</profile>
+
+		<profile>
+			<id>release</id>
+			<repositories>
+				<repository>
+					<id>maven-s3-release-repo</id>
+					<url>s3://repo.involves.com.br/release</url>
+					<snapshots>
+						<enabled>false</enabled>
+					</snapshots>
+				</repository>
+			</repositories>
+			<distributionManagement>
+				<repository>
+					<id>maven-s3-release-repo</id>
+					<url>s3://repo.involves.com.br/release</url>
+				</repository>
+			</distributionManagement>
+		</profile>
+
+	</profiles>
+	
 </project>
