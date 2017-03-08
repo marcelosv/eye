@@ -37,6 +37,12 @@ public class EyeAspect extends EyeAbstract {
     @Value("${eye.disabled:}")
     private String disabled;
 
+    @Value("${eye.user.elasticsearch:}")
+    private String user;
+    
+    @Value("${eye.pass.elasticsearch:}")
+	private String pass;
+	
     @Autowired
     private ApplicationContext context;
     
@@ -117,7 +123,7 @@ public class EyeAspect extends EyeAbstract {
             long tempoFinal = System.currentTimeMillis() - tempoInicial;
             sonarData.setTimeExec(tempoFinal);
 
-            new Thread(new Send(sonarData, eyeLink)).start();
+            new Thread(new Send(sonarData, eyeLink, user, pass)).start();
         }
         
         return returnObject;
