@@ -4,7 +4,7 @@
 
 	<groupId>br.com.eye</groupId>
 	<artifactId>eye</artifactId>
-	<version>1.17.3.1</version>
+	<version>1.17.3.2</version>
 	<packaging>jar</packaging>
 
 	<properties>

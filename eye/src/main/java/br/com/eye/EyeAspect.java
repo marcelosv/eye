@@ -87,14 +87,15 @@ public class EyeAspect extends EyeAbstract {
         sonarData.setDescription(sensor.description());
         sonarData.setTags(sensor.tags());
         sonarData.setType(sensor.type().getValue());
+        sonarData.setTypeFmt(sensor.type().name());
         sonarData.setTimeInit(new Date().getTime());
         sonarData.setServer(appName);
         sonarData.setVersion(appVersion);
         
-        IdentifyClient identifyClient = getIdentifyClient();
+        ColectData identifyClient = getIdentifyClient();
         
         if( identifyClient != null ){
-        	sonarData.setClient(identifyClient.client());
+        	identifyClient.colectData(sonarData);
         }
         
         try {
@@ -129,12 +130,13 @@ public class EyeAspect extends EyeAbstract {
         return returnObject;
     }
 
-	private IdentifyClient getIdentifyClient(){
+	private ColectData getIdentifyClient(){
 		try{
-			return context.getBean(IdentifyClient.class);
+			return context.getBean(ColectData.class);
 		}catch(NoSuchBeanDefinitionException ex){
 			return null;
 		}
 	}
+	
 	
 }

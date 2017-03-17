@@ -17,6 +17,9 @@ public class SonarData {
 	@JsonProperty("tags_")
 	private String[] tags;
 	
+	@JsonProperty("typeFmt_")
+	private String typeFmt;
+	
 	@JsonProperty("type_")
 	private int type;
 	
@@ -31,9 +34,6 @@ public class SonarData {
 	
 	@JsonProperty("messageError_")
 	private String messageError;
-	
-	@JsonProperty("client_")
-	private String client;
 	
 	@JsonProperty("server_")
 	private String server;
@@ -61,6 +61,32 @@ public class SonarData {
 	
 	@JsonProperty("mLink_")
 	private String mLink;
+	
+	// client
+	@JsonProperty("client_")
+	private String client;
+	
+	@JsonProperty("user_")
+	private String user;
+	
+	@JsonProperty("timezone_")
+	private String timezone;
+	
+	@JsonProperty("locale_")
+	private String locale;
+	
+	@JsonProperty("flags_")
+	private String flags;
+	
+	@JsonProperty("email_")
+	private String email;
+	
+	// machine
+	@JsonProperty("memory_")
+	private String memory;
+	
+	@JsonProperty("configs_machine_")
+	private String configs_machine;
 	
 	public String getDescription() {
 		return description;
@@ -199,6 +225,68 @@ public class SonarData {
 		this.mLink = mLink;
 	}
 
+	public String getUser() {
+		return user;
+	}
 
-	
+	public void setUser(String user) {
+		this.user = user;
+	}
+
+	public String getTypeFmt() {
+		return typeFmt;
+	}
+
+	public void setTypeFmt(String typeFmt) {
+		this.typeFmt = typeFmt;
+	}
+
+	public String getTimezone() {
+		return timezone;
+	}
+
+	public void setTimezone(String timezone) {
+		this.timezone = timezone;
+	}
+
+	public String getLocale() {
+		return locale;
+	}
+
+	public void setLocale(String locale) {
+		this.locale = locale;
+	}
+
+	public String getFlags() {
+		return flags;
+	}
+
+	public void setFlags(String flags) {
+		this.flags = flags;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getMemory() {
+		return memory;
+	}
+
+	public void setMemory(String memory) {
+		this.memory = memory;
+	}
+
+	public String getConfigs_machine() {
+		return configs_machine;
+	}
+
+	public void setConfigs_machine(String configs_machine) {
+		this.configs_machine = configs_machine;
+	}
+
 }
