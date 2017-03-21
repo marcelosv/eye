@@ -23,6 +23,8 @@ import br.com.eye.data.TypesData;
 @Component
 public class EyeAspect extends EyeAbstract {
 
+	private static final String TRUE = "true";
+
 	private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
 
     @Value("${spring.application.name:}")
@@ -51,7 +53,7 @@ public class EyeAspect extends EyeAbstract {
 		
 		LOGGER.debug("Método interceptado pelo Sonar.");
 
-        if("false".equals(disabled)){
+        if(TRUE.equals(disabled)){
             LOGGER.debug("ignorado interceptação");
             return joinPoint.proceed();
         }
