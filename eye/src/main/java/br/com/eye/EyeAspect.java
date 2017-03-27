@@ -23,8 +23,6 @@ import br.com.eye.data.TypesData;
 @Component
 public class EyeAspect extends EyeAbstract {
 
-	private static final String TRUE = "true";
-
 	private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
 
     @Value("${spring.application.name:}")
@@ -45,6 +43,12 @@ public class EyeAspect extends EyeAbstract {
     @Value("${eye.pass.elasticsearch:}")
 	private String pass;
 	
+    @Value("${spring.cloud.consul.discovery.instanceId:}")
+	private String instanceId;
+    
+    @Value("${eye.tags.active:}")
+	private String tagsActive;
+    
     @Autowired
     private ApplicationContext context;
     
@@ -53,7 +57,16 @@ public class EyeAspect extends EyeAbstract {
 		
 		LOGGER.debug("Método interceptado pelo Sonar.");
 
-        if(TRUE.equals(disabled)){
+		// metodo anotado
+        MethodSignature signature = (MethodSignature) joinPoint.getSignature();
+        Method method = signature.getMethod();
+        
+        LOGGER.debug("Metodo: "+method.getName());
+        
+        Sensor sensor = method.getAnnotation(Sensor.class);
+        
+        Abort abort = new Abort();
+        if(abort.isAbortSensor(sensor, disabled, tagsActive)){
             LOGGER.debug("ignorado interceptação");
             return joinPoint.proceed();
         }
@@ -62,14 +75,6 @@ public class EyeAspect extends EyeAbstract {
 
 		Object returnObject = null;
 
-        // metodo anotado
-        MethodSignature signature = (MethodSignature) joinPoint.getSignature();
-        Method method = signature.getMethod();
-        
-        LOGGER.debug("Metodo: "+method.getName());
-        
-        Sensor sensor = method.getAnnotation(Sensor.class);
-        
         // iniciando sonar
         SonarData sonarData = new SonarData();
         
@@ -82,7 +87,6 @@ public class EyeAspect extends EyeAbstract {
         	sonarData.setmDestiny(microservice);
         	sonarData.setmLink(link);
         }
-        
         
         sonarData.setBuildTimestamp(DATE_IN.format(new Date()));
         
@@ -99,6 +103,11 @@ public class EyeAspect extends EyeAbstract {
         if( identifyClient != null ){
         	identifyClient.colectData(sonarData);
         }
+        
+        sonarData.setInstanceId(instanceId);
+
+        injectMemoryAndConfig(sonarData);
+        injectArgs(sonarData, joinPoint);
         
         try {
             returnObject = joinPoint.proceed();
@@ -132,6 +141,35 @@ public class EyeAspect extends EyeAbstract {
         return returnObject;
     }
 
+	private void injectArgs(SonarData sonarData, ProceedingJoinPoint joinPoint) {
+		StringBuilder sb = new StringBuilder();
+		Object[] args = joinPoint.getArgs();
+		
+		if( args == null ){
+			return;
+		}
+		
+		for(Object arg : args){
+			if( arg instanceof Number ){
+				sb.append(((Number)arg).doubleValue());
+			}else if( arg instanceof String ){
+				sb.append(arg.toString());
+			}else{
+				sb.append("ignored");
+			}
+			sb.append(", ");
+		}
+		
+		sonarData.setArgs(sb.toString());
+	}
+
+	private void injectMemoryAndConfig(SonarData sonarData) {
+		Long[] memorys = MemoryJmxInformation.getMemory();
+		
+		sonarData.setMemory(String.valueOf(memorys[0]));
+		sonarData.setMemoryFree(String.valueOf(memorys[1]));
+	}
+
 	private ColectData getIdentifyClient(){
 		try{
 			return context.getBean(ColectData.class);
@@ -140,5 +178,6 @@ public class EyeAspect extends EyeAbstract {
 		}
 	}
 	
+
 	
 }

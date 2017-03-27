@@ -4,7 +4,7 @@
 
 	<groupId>br.com.msv</groupId>
 	<artifactId>eye-test</artifactId>
-	<version>1.17.3.2</version>
+	<version>1.17.3.3</version>
 	<packaging>jar</packaging>
 
 	<properties>

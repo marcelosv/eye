@@ -85,8 +85,20 @@ public class SonarData {
 	@JsonProperty("memory_")
 	private String memory;
 	
+	@JsonProperty("memory_free")
+	private String memoryFree;
+	
 	@JsonProperty("configs_machine_")
 	private String configs_machine;
+	
+	@JsonProperty("instance_id")
+	private String instanceId;
+	
+	@JsonProperty("args")
+	private String args;
+	
+	@JsonProperty("etag")
+	private String etag;
 	
 	public String getDescription() {
 		return description;
@@ -289,4 +301,37 @@ public class SonarData {
 		this.configs_machine = configs_machine;
 	}
 
+	public String getInstanceId() {
+		return instanceId;
+	}
+
+	public void setInstanceId(String instanceId) {
+		this.instanceId = instanceId;
+	}
+
+	public String getArgs() {
+		return args;
+	}
+
+	public void setArgs(String args) {
+		this.args = args;
+	}
+
+	public String getEtag() {
+		return etag;
+	}
+
+	public void setEtag(String etag) {
+		this.etag = etag;
+	}
+
+	public String getMemoryFree() {
+		return memoryFree;
+	}
+
+	public void setMemoryFree(String memoryFree) {
+		this.memoryFree = memoryFree;
+	}
+
+	
 }

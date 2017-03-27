@@ -4,7 +4,7 @@
 
 	<groupId>br.com.eye</groupId>
 	<artifactId>eye</artifactId>
-	<version>1.17.3.2</version>
+	<version>1.17.3.3</version>
 	<packaging>jar</packaging>
 
 	<properties>
@@ -95,61 +95,5 @@
 
 	</build>
 
-	<profiles>
-
-		<profile>
-			<id>dev</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
-			<repositories>
-				<repository>
-					<id>maven-s3-snapshot-repo</id>
-					<url>s3://repo.involves.com.br/snapshot</url>
-					<snapshots>
-						<enabled>true</enabled>
-					</snapshots>
-				</repository>
-
-				<repository>
-					<id>maven-s3-release-repo</id>
-					<url>s3://repo.involves.com.br/release</url>
-					<snapshots>
-						<enabled>false</enabled>
-					</snapshots>
-				</repository>
-			</repositories>
-			<distributionManagement>
-				<repository>
-					<id>maven-s3-release-repo</id>
-					<url>s3://repo.involves.com.br/snapshot</url>
-				</repository>
-				<snapshotRepository>
-					<id>maven-s3-release-repo</id>
-					<url>s3://repo.involves.com.br/snapshot</url>
-				</snapshotRepository>
-			</distributionManagement>
-		</profile>
-
-		<profile>
-			<id>release</id>
-			<repositories>
-				<repository>
-					<id>maven-s3-release-repo</id>
-					<url>s3://repo.involves.com.br/release</url>
-					<snapshots>
-						<enabled>false</enabled>
-					</snapshots>
-				</repository>
-			</repositories>
-			<distributionManagement>
-				<repository>
-					<id>maven-s3-release-repo</id>
-					<url>s3://repo.involves.com.br/release</url>
-				</repository>
-			</distributionManagement>
-		</profile>
-
-	</profiles>
 	
 </project>
