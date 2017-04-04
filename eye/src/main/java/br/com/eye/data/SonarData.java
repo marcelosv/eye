@@ -83,10 +83,10 @@ public class SonarData {
 	
 	// machine
 	@JsonProperty("memory_")
-	private String memory;
+	private long memory;
 	
 	@JsonProperty("memory_free")
-	private String memoryFree;
+	private long memoryFree;
 	
 	@JsonProperty("configs_machine_")
 	private String configs_machine;
@@ -285,11 +285,11 @@ public class SonarData {
 		this.email = email;
 	}
 
-	public String getMemory() {
+	public long getMemory() {
 		return memory;
 	}
 
-	public void setMemory(String memory) {
+	public void setMemory(long memory) {
 		this.memory = memory;
 	}
 
@@ -325,13 +325,11 @@ public class SonarData {
 		this.etag = etag;
 	}
 
-	public String getMemoryFree() {
+	public long getMemoryFree() {
 		return memoryFree;
 	}
 
-	public void setMemoryFree(String memoryFree) {
+	public void setMemoryFree(long memoryFree) {
 		this.memoryFree = memoryFree;
 	}
-
-	
 }

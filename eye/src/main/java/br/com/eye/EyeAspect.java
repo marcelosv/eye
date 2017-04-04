@@ -166,8 +166,8 @@ public class EyeAspect extends EyeAbstract {
 	private void injectMemoryAndConfig(SonarData sonarData) {
 		Long[] memorys = MemoryJmxInformation.getMemory();
 		
-		sonarData.setMemory(String.valueOf(memorys[0]));
-		sonarData.setMemoryFree(String.valueOf(memorys[1]));
+		sonarData.setMemory(memorys[0].longValue());
+		sonarData.setMemoryFree(memorys[1].longValue());
 	}
 
 	private ColectData getIdentifyClient(){
@@ -176,8 +176,5 @@ public class EyeAspect extends EyeAbstract {
 		}catch(NoSuchBeanDefinitionException ex){
 			return null;
 		}
-	}
-	
-
-	
+	}	
 }
