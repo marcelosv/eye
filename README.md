@@ -4,7 +4,7 @@ eYe is a simple application that enables the realtime monitoring of Spring Boot 
 
 ## Version
 
-2017.2.1.1
+1.17.3.5
 
 ## Whats is a change the last version?
 The first version of eYe had a visual monitor.
@@ -62,7 +62,7 @@ Add this dependency in your software.
 <dependency>
     <groupId>br.com.eye</groupId>
     <artifactId>eye</artifactId>
-    <version>2017.2.1.1</version>
+    <version>1.17.3.5</version>
 </dependency>
 ```
 
