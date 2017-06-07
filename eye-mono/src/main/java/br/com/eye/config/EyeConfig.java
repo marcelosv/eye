@@ -1,6 +1,6 @@
 package br.com.eye.config;
 
-import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
+//import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
@@ -12,7 +12,7 @@ import br.com.eye.EyeAspect;
  * @author Marcelo de Souza Vieira
  */
 @Configuration
-@ImportAutoConfiguration(value={EyeAspect.class})
+//@ImportAutoConfiguration(value={EyeAspect.class})
 @EnableAspectJAutoProxy
 public class EyeConfig {
 

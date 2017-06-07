@@ -4,10 +4,10 @@ eYe is a simple application that enables the realtime monitoring of Spring Boot 
 
 ## Version
 
-2.0.0.0
+2017.2.1.1
 
 ## Whats is a change the last version?
-The two version of eYe had a split for using rest or messaging RabbitMQ.
+The first version of eYe had a visual monitor.
 We integrated software with eYe and it sent the metrics to the monitor.
 Now, one last version, the monitor is finished.
 eYe now integrates with Elasticsearch and Kibana.
@@ -62,7 +62,7 @@ Add this dependency in your software.
 <dependency>
     <groupId>br.com.eye</groupId>
     <artifactId>eye</artifactId>
-    <version>1.17.3.5</version>
+    <version>2017.2.1.1</version>
 </dependency>
 ```
 
@@ -74,6 +74,9 @@ The main one is "eye.url" which should be where the Elasticsearch server will be
 spring.application.name=nome-sistema
 spring.application.version=0.0.0.1
 eye.url=http://localhost:9200
+
+eye.user.elasticsearch=
+eye.pass.elasticsearch=
 ```
 
 #### 3) Started eYe interceptor
@@ -102,7 +105,7 @@ First we need to add index the Kibana. The eYe send information with "spring.app
 In our exemple, we add o index "nome-sistema*"
 Now folder use the index to make the queries.
 
-<img src="kibana_index.png">
+<img src="../kibana_index.png">
 
 ## Communication
 

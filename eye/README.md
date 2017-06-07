@@ -4,10 +4,10 @@ eYe is a simple application that enables the realtime monitoring of Spring Boot 
 
 ## Version
 
-2017.2.1.1
+2.0.0.0
 
 ## Whats is a change the last version?
-The first version of eYe had a visual monitor.
+The two version of eYe had a split for using rest or messaging RabbitMQ.
 We integrated software with eYe and it sent the metrics to the monitor.
 Now, one last version, the monitor is finished.
 eYe now integrates with Elasticsearch and Kibana.
@@ -62,7 +62,7 @@ Add this dependency in your software.
 <dependency>
     <groupId>br.com.eye</groupId>
     <artifactId>eye</artifactId>
-    <version>2017.2.1.1</version>
+    <version>2.0.0.0</version>
 </dependency>
 ```
 

@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.eye.annotations.Sensor;
-import br.com.eye.config.EyeConfig;
 import br.com.eye.data.TypesData;
+import br.com.eye.messaing.config.EyeConfig;
 
 @SpringBootApplication
 @RestController
