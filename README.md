@@ -62,7 +62,7 @@ Add this dependency in your software.
 <dependency>
     <groupId>br.com.eye</groupId>
     <artifactId>eye</artifactId>
-    <version>1.17.3.5</version>
+    <version>2.0.0.0</version>
 </dependency>
 ```
 
@@ -71,9 +71,31 @@ In the application.properties add the keys below.
 The main one is "eye.url" which should be where the Elasticsearch server will be.
 
 ```
-spring.application.name=nome-sistema
+# name the application
+spring.application.name=name-sistema
+
+# version the application
 spring.application.version=0.0.0.1
+
+# url the elasticsearch
 eye.url=http://localhost:9200
+
+# When you necessary disable all logs, and set disabled=true
+eye.disabled=false
+
+# user the elasticsearch
+eye.user.elasticsearch=
+
+# pass the elasticsearch
+eye.pass.elasticsearch=
+
+# When you put @Sensor in your method, you need include one TAG. 
+# With properties you have the possibility active one or more tags and excludes the diferents.
+# Ex1:
+eye.tags.active=tag1
+
+# Ex2:
+eye.tags.active=tag1, tag2
 ```
 
 #### 3) Started eYe interceptor

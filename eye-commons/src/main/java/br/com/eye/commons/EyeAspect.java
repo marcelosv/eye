@@ -139,7 +139,11 @@ public class EyeAspect extends EyeAbstract {
             long tempoFinal = System.currentTimeMillis() - tempoInicial;
             sonarData.setTimeExec(tempoFinal);
 
-            sendComponent.send(sonarData, eyeLink, user, pass);//new Thread(new Send(sonarData, eyeLink, user, pass)).start();
+            try{
+            	sendComponent.send(sonarData, eyeLink, user, pass);//new Thread(new Send(sonarData, eyeLink, user, pass)).start();
+            }catch(Exception ex){
+            	// dont need code because if this code generate error, dont stop code origin the system.
+            }
         }
         
         return returnObject;
