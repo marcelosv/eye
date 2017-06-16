@@ -23,6 +23,8 @@ public class Send implements Runnable{
 	
 	private String user;
 	private String pass;
+
+	private String forceIndex;
 	
     public Send(SonarData sonarData, String eyeLink, String user, String pass){
         this.sonarData = sonarData;
@@ -31,7 +33,12 @@ public class Send implements Runnable{
 		this.pass = pass;
     }
 
-    @Override
+    public Send(SonarData sonarData, String eyeLink, String user, String pass, String forceIndex) {
+    	this(sonarData, eyeLink, user, pass);
+		this.forceIndex = forceIndex;
+	}
+
+	@Override
     public void run() {
         try {
         	
@@ -50,8 +57,15 @@ public class Send implements Runnable{
     		RestTemplate restTemplate = new RestTemplate();
     		
     		StringBuilder link = new StringBuilder(eyeLink);
-            link.append("/")
-            .append(sonarData.getServer().replaceAll(" ", "_")).append("-").append(EyeAbstract.DATE_INDEX.format(new Date()))
+            link.append("/");
+            
+            if( StringUtils.isEmpty(forceIndex)){
+            	link.append(sonarData.getServer().replaceAll(" ", "_"));
+            }else{
+            	link.append(forceIndex);
+            }
+            
+            link.append("-").append(EyeAbstract.DATE_INDEX.format(new Date()))
             .append("/").append(sonarData.getDescription().replaceAll(" ", "_"))
             .append("/");
             

@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
+import br.com.eye.annotations.EyeIgnoreExcetion;
 import br.com.eye.annotations.Sensor;
 import br.com.eye.commons.data.SonarData;
 import br.com.eye.commons.send.SendComponent;
@@ -125,9 +126,12 @@ public class EyeAspect extends EyeAbstract {
                     messageStackTrace.append(item.toString()).append("<br>");
                 }
             }
-
+            boolean isError = true;
+            if( throwable.getClass().isAnnotationPresent(EyeIgnoreExcetion.class)){
+            	isError = false;
+            }
             sonarData.setMessageStackTrace(messageStackTrace.toString());
-        	sonarData.setError(true);
+        	sonarData.setError(isError);
         	sonarData.setMessageError(throwable.getMessage());
         	sonarData.setException(throwable.getClass().getSimpleName());
             throw throwable;

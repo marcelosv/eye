@@ -32,10 +32,13 @@ public class Receiver {
     @Value("${eye.pass.elasticsearch}")
 	private String pass;
     
+    @Value("${eye.force.index:}")
+    private String forceIndex;
+    
     @RabbitListener(queues = "${eye.messaging.queue}", group="eye-kibana")
     public void receiveMessage(SonarData sonarData) {
         
-    	new Send(sonarData, eyeLink, user, pass).run();
+    	new Send(sonarData, eyeLink, user, pass, forceIndex).run();
         
         latch.countDown();
     }
