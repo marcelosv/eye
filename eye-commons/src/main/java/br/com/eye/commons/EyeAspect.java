@@ -126,10 +126,17 @@ public class EyeAspect extends EyeAbstract {
                     messageStackTrace.append(item.toString()).append("<br>");
                 }
             }
+            
             boolean isError = true;
-            if( throwable.getClass().isAnnotationPresent(EyeIgnoreExcetion.class)){
-            	isError = false;
+            
+            if( throwable.getClass().getInterfaces() != null ){
+            	for (Class clazz : throwable.getClass().getInterfaces()) {
+            		if( clazz.equals(EyeIgnoreExcetion.class)){
+            			isError = false;
+            		}
+				}
             }
+            
             sonarData.setMessageStackTrace(messageStackTrace.toString());
         	sonarData.setError(isError);
         	sonarData.setMessageError(throwable.getMessage());
