@@ -15,7 +15,6 @@
 		<module>eye-test</module>
 		<module>eye-mono</module>
 		<module>eye-messaging</module>
-		<module>eye-commons-prometheus</module>
 		<module>eye-prometheus</module>
 		<module>eye-consumer-for-kibana</module>
     </modules>
