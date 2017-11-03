@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>br.com.eye</groupId>
-	<artifactId>eye-commons</artifactId>
+	<artifactId>eye-commons-prometheus</artifactId>
 	<version>3.0.0.0</version>
 	<packaging>jar</packaging>
 

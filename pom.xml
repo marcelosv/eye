@@ -4,7 +4,7 @@
 
 	<groupId>br.com.msv</groupId>
 	<artifactId>eye-parent</artifactId>
-	<version>2.0.0.0</version>
+	<version>3.0.0.0</version>
 	<packaging>pom</packaging>
 
 	<name>eye-parent</name>
@@ -15,6 +15,8 @@
 		<module>eye-test</module>
 		<module>eye-mono</module>
 		<module>eye-messaging</module>
+		<module>eye-commons-prometheus</module>
+		<module>eye-prometheus</module>
 		<module>eye-consumer-for-kibana</module>
     </modules>
     
